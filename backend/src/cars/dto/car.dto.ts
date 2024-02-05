@@ -7,3 +7,11 @@ export class CreateCarDto {
   year: number;
   engineType: EngineType;
 }
+
+export class UpdateCarDto {
+  brand?: string;
+  version?: string;
+  model?: string;
+  year?: number;
+  engineType?: EngineType;
+}

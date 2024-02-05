@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Car, EngineType } from './car.entity';
 import { v4 } from 'uuid';
-import { CreateCarDto } from './dto/car.dto';
+import { CreateCarDto, UpdateCarDto } from './dto/car.dto';
 
 @Injectable()
 export class CarsService {
@@ -36,5 +36,33 @@ export class CarsService {
     this.cars.push(newCar);
 
     return newCar;
+  }
+
+  updateCar(id: string, updatedCarFields: UpdateCarDto) {
+    const car = this.getCar(id);
+
+    // Check that at least one field is different from the original car
+    const hasAtLeastOneFieldToUpdate = Object.keys(updatedCarFields).some(
+      (key) => car[key] !== updatedCarFields[key],
+    );
+    if (!hasAtLeastOneFieldToUpdate) {
+      throw new HttpException(
+        'At least one field must be different from the original car',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const updatedCar = Object.assign(car, updatedCarFields);
+
+    this.cars = this.cars.map((car) => (car.id === id ? updatedCar : car));
+
+    return updatedCar;
+  }
+
+  deleteCar(id: string) {
+    if (this.getCar(id)) {
+      this.cars = this.cars.filter((car) => car.id !== id);
+    }
+    return { message: 'Car deleted successfully.' };
   }
 }
