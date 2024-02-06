@@ -32,8 +32,20 @@ export class CarsService {
     },
   ];
 
-  getAllCars() {
-    return this.cars;
+  getAllCars(fields?: string[]) {
+    if (!fields || fields.length === 0) {
+      return this.cars;
+    }
+
+    return this.cars.map((item) => {
+      const filteredItem: any = {};
+      fields.forEach((field) => {
+        if (item.hasOwnProperty(field)) {
+          filteredItem[field] = item[field];
+        }
+      });
+      return filteredItem;
+    });
   }
 
   getCar(id: string) {
