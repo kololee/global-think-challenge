@@ -1,5 +1,6 @@
 import { Table, Progress, Anchor, Text, Group, Container } from '@mantine/core';
 import classes from './TableReviews.module.css';
+import { Car } from '@/types/cars';
 
 const data = [
   {
@@ -40,7 +41,7 @@ const data = [
   },
 ];
 
-export function DataTable() {
+export function DataTable(cars: any) {
   const rows = data.map((row) => {
     const totalReviews = row.reviews.negative + row.reviews.positive;
 
