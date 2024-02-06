@@ -1,15 +1,10 @@
-import { Car, EngineType } from "@/types/cars";
 import { Container, MultiSelect } from "@mantine/core";
 
-export function Select() {
-  const carFields: Array<keyof Car> = Object.keys({
-    id: "",
-    brand: "",
-    version: "",
-    model: "",
-    year: 0,
-    engineType: EngineType.V8
-  } as Car) as Array<keyof Car>;
+interface SelectProps {
+  setFilters: React.Dispatch<React.SetStateAction<String[]>>;
+}
+
+const Select: React.FC<SelectProps> = ({ setFilters }) => {
 
   return (
     <Container size={'xs'} mt={20}>
@@ -20,8 +15,12 @@ export function Select() {
         placeholder="Pick value"
         data={['brand', 'model', 'year', 'version', 'engineType']}
         defaultValue={[]}
+        onChange={setFilters}
         clearable
       />
+      
     </Container>
   )
 }
+
+export default Select;
