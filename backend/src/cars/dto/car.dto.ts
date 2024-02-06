@@ -23,7 +23,7 @@ export class CreateCarDto {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(2)
   model: string;
 
   @IsNumber()
@@ -53,7 +53,7 @@ export class UpdateCarDto {
   @IsString()
   @IsOptional()
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(2)
   model?: string;
 
   @IsNumber()
