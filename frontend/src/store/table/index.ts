@@ -14,8 +14,16 @@ interface CarsState {
   error: boolean
 }
 
-export const fetchData = createAsyncThunk('table/fetchData', async () => {
-  const response = await axios.get('http://localhost:3000/cars')
+interface FetchData {
+  query?: String[]
+}
+
+export const fetchData = createAsyncThunk('table/fetchData', async ({query}: FetchData = {}) => {
+  let url = 'http://localhost:3000/cars'
+  if (query && query.length > 0) {
+    url += `?fields=${query}`
+  }
+  const response = await axios.get(url)
   return response.data
 })
 

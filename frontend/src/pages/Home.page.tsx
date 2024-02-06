@@ -22,19 +22,22 @@ export function HomePage() {
 
   useEffect(() => {
     const fetchCars = async () => {
-      const res = await dispatch(fetchData());
+      const res = await dispatch(fetchData({query: []}));
       setListOfCars(res.payload);
     };
     fetchCars();
   }, []);
 
-  console.log(filters)
+  const fetchFilteredCars = async () => {
+    const res = await dispatch(fetchData({query: filters}));
+    setListOfCars(res.payload);
+  };
 
   return (
     <>
       <HeaderSimple />
       <Welcome />
-      <Select setFilters={setFilters} />
+      <Select setFilters={setFilters} filter={fetchFilteredCars} />
       {store.data.length > 0 && !store.isLoading &&
         <DataTable listOfCars={listOfCars} />
       }
