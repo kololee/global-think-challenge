@@ -14,6 +14,22 @@ export class CarsService {
       year: 1998,
       engineType: EngineType.V8,
     },
+    {
+      id: v4(),
+      brand: 'BMW',
+      version: 'e46',
+      model: 'M3',
+      year: 2003,
+      engineType: EngineType.INLINE_6,
+    },
+    {
+      id: v4(),
+      brand: 'Toyota',
+      version: 'mk4',
+      model: 'Supra',
+      year: 1993,
+      engineType: EngineType.INLINE_6,
+    },
   ];
 
   getAllCars() {
