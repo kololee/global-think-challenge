@@ -5,7 +5,7 @@ export enum EngineType {
   V12 = 'V12',
 };
 
-export type Car = {
+export interface Car {
   id: string;
   brand: string;
   version: string;

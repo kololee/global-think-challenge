@@ -5,9 +5,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios';
 
-interface Redux {
-  getState: any
-  dispatch: Dispatch<any>
+// ** Interface
+import { Car } from '../../types/cars'
+
+interface CarsState {
+  data: Car[],
+  isLoading: boolean,
+  error: boolean
 }
 
 export const fetchData = createAsyncThunk('table/fetchData', async () => {
@@ -16,7 +20,7 @@ export const fetchData = createAsyncThunk('table/fetchData', async () => {
   return response.data
 })
 
-const initialState = {
+const initialState: CarsState = {
   data: [],
   isLoading: false,
   error: false

@@ -1,9 +1,12 @@
 // ** Toolkit imports
 import { configureStore } from '@reduxjs/toolkit'
 
+// ** Reducer
+import table from './table'
+
 export const store = configureStore({
   reducer: {
-
+    table
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
