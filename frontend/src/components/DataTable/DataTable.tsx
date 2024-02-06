@@ -40,7 +40,7 @@ const data = [
   },
 ];
 
-export function TableReviews() {
+export function DataTable() {
   const rows = data.map((row) => {
     const totalReviews = row.reviews.negative + row.reviews.positive;
 
@@ -63,7 +63,7 @@ export function TableReviews() {
   });
 
   return (
-    <Container my="md">
+    <Container my="md" mt={20}>
       <Table.ScrollContainer minWidth={800}>
         <Table verticalSpacing="xs">
           <Table.Thead>
