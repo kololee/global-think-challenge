@@ -1,23 +1,24 @@
+import { useEffect, useState } from 'react';
 import { Welcome } from '../components/Welcome/Welcome';
 import { HeaderSimple } from '@/components/Header/HeaderSimple';
 import { DataTable } from '@/components/DataTable/DataTable';
-import { useEffect, useState } from 'react';
+import Select from '@/components/Select/Select';
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Car } from '@/types/cars';
+
 // ** Actions Imports
 import { fetchData } from '@/store/table';
 import { AppDispatch, RootState } from '@/store';
-import { Car, EngineType } from '@/types/cars';
-import { MultiSelect } from '@mantine/core';
-import { Select } from '@/components/Select/Select';
 
 export function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const store = useSelector((state: RootState) => state.table);
 
   const [listOfCars, setListOfCars] = useState<Car[]>([]);
+  const [filters, setFilters] = useState<String[]>([]);
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -27,11 +28,13 @@ export function HomePage() {
     fetchCars();
   }, []);
 
+  console.log(filters)
+
   return (
     <>
       <HeaderSimple />
       <Welcome />
-      <Select />
+      <Select setFilters={setFilters} />
       {store.data.length > 0 && !store.isLoading &&
         <DataTable listOfCars={listOfCars} />
       }

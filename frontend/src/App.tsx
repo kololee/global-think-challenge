@@ -8,7 +8,7 @@ import { store } from './store';
 export default function App() {
   return (
     <Provider store={store}>
-      <MantineProvider theme={theme}>
+      <MantineProvider defaultColorScheme='dark'>
         <Router />
       </MantineProvider>
     </Provider>
