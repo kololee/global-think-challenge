@@ -16,13 +16,12 @@ interface CarsState {
 
 export const fetchData = createAsyncThunk('table/fetchData', async () => {
   const response = await axios.get('http://localhost:3000/cars')
-  console.log(response.data)
   return response.data
 })
 
 const initialState: CarsState = {
   data: [],
-  isLoading: false,
+  isLoading: true,
   error: false
 }
 
