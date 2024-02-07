@@ -1,12 +1,13 @@
 import { Car, EngineType } from '@/types/cars';
 import { Modal, Button, Stack, TextInput, Select } from '@mantine/core';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 
 interface CarsModalProps {
   opened: boolean;
   open: () => void;
   close: () => void;
-  car: Car | null;
+  car: Car;
 }
 
 type FormValues = {
@@ -18,15 +19,13 @@ type FormValues = {
 };
 
 export default function CarsModal({ opened, open, close, car }: CarsModalProps) {
-  console.log('car in modal', car)
-
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
-      brand: car ? car.brand : '',
-      model: car ? car.model : '',
-      year: car ? car.year : 0,
-      version: car ? car.version : '',
-      engineType: car ? car.engineType : EngineType.V8,
+      brand: car.brand,
+      model: car.model,
+      year: car.year,
+      version: car.version,
+      engineType: car.engineType,
     },
   });
 
@@ -34,14 +33,21 @@ export default function CarsModal({ opened, open, close, car }: CarsModalProps) 
     console.log(data)
   }
 
-  const handleOnClose = () => {
-    close();
-    reset();
-  }
+  useEffect(() => {
+    if (opened) {
+      reset({
+        brand: car.brand,
+        model: car.model,
+        year: car.year,
+        version: car.version,
+        engineType: car.engineType,
+      });
+    }
+  }, [opened, reset, car]);
 
   return (
     <>
-      <Modal opened={opened} onClose={handleOnClose} title="Edit car" centered>
+      <Modal opened={opened} onClose={close} title="Edit car" centered>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack>
             <Controller
@@ -50,7 +56,6 @@ export default function CarsModal({ opened, open, close, car }: CarsModalProps) 
               render={({ field }) => (
                 <TextInput
                   label="Brand"
-                  placeholder="Ferrari"
                   radius="md"
                   {...field}
                 />
