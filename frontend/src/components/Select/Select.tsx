@@ -14,7 +14,7 @@ const Select: React.FC<SelectProps> = ({ setFilters, filter }) => {
           <MultiSelect
             size='sm'
             radius='lg'
-            label="Your favorite fields"
+            label="Select desired fields to read"
             placeholder="Pick value"
             data={['brand', 'model', 'year', 'version', 'engineType']}
             defaultValue={[]}
