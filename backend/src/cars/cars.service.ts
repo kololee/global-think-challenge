@@ -14,10 +14,38 @@ export class CarsService {
       year: 1998,
       engineType: EngineType.V8,
     },
+    {
+      id: v4(),
+      brand: 'BMW',
+      version: 'e46',
+      model: 'M3',
+      year: 2003,
+      engineType: EngineType.INLINE_6,
+    },
+    {
+      id: v4(),
+      brand: 'Toyota',
+      version: 'mk4',
+      model: 'Supra',
+      year: 1993,
+      engineType: EngineType.INLINE_6,
+    },
   ];
 
-  getAllCars() {
-    return this.cars;
+  getAllCars(fields?: string[]) {
+    if (!fields || fields.length === 0) {
+      return this.cars;
+    }
+
+    return this.cars.map((item) => {
+      const filteredItem: any = {};
+      fields.forEach((field) => {
+        if (item.hasOwnProperty(field)) {
+          filteredItem[field] = item[field];
+        }
+      });
+      return filteredItem;
+    });
   }
 
   getCar(id: string) {

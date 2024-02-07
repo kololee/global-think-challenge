@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/car.dto';
@@ -14,8 +15,12 @@ import { CreateCarDto } from './dto/car.dto';
 export class CarsController {
   constructor(private carsService: CarsService) {}
   @Get()
-  getAllCars() {
-    return this.carsService.getAllCars();
+  getAllCars(@Query('fields') fields?: string) {
+    let requestedFields: string[] | undefined;
+    if (fields) {
+      requestedFields = fields.split(',');
+    }
+    return this.carsService.getAllCars(requestedFields);
   }
 
   @Get(':id')
