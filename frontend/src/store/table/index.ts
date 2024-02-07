@@ -11,8 +11,7 @@ import { Car } from '../../types/cars'
 interface CarsState {
   data: Car[],
   isLoading: boolean,
-  error: boolean,
-  query?: String[]
+  error: boolean
 }
 
 interface FetchData {
@@ -31,18 +30,13 @@ export const fetchData = createAsyncThunk('table/fetchData', async ({query}: Fet
 const initialState: CarsState = {
   data: [],
   isLoading: true,
-  error: false,
-  query: []
+  error: false
 }
 
 const tableSlice = createSlice({
   name: 'table',
   initialState,
-  reducers: {
-    setQuery(state, action) {
-      state.query = action.payload
-    }
-  },
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchData.pending, state => {
       state.isLoading = true
@@ -57,7 +51,5 @@ const tableSlice = createSlice({
     })
   }
 })
-
-export const { setQuery } = tableSlice.actions
 
 export default tableSlice.reducer
