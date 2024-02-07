@@ -23,7 +23,9 @@ const Select: React.FC<SelectProps> = ({ setFilters, filter }) => {
           />
         </Grid.Col>
         <Grid.Col span={4}>
-          <Button radius={'lg'} onClick={filter}>Filter</Button>
+          <Button radius={'lg'} onClick={filter}>
+            Filter
+          </Button>
         </Grid.Col>
       </Grid>
     </Container>

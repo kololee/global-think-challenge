@@ -11,6 +11,7 @@ interface CarsModalProps {
 }
 
 type FormValues = {
+  id: string;
   brand: string;
   model: string;
   year: number;
@@ -21,6 +22,7 @@ type FormValues = {
 export default function CarsModal({ opened, open, close, car }: CarsModalProps) {
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
+      id: car.id,
       brand: car.brand,
       model: car.model,
       year: car.year,
@@ -36,6 +38,7 @@ export default function CarsModal({ opened, open, close, car }: CarsModalProps) 
   useEffect(() => {
     if (opened) {
       reset({
+        id: car.id,
         brand: car.brand,
         model: car.model,
         year: car.year,

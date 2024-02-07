@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Car } from '@/types/cars';
 
 // ** Actions Imports
-import { fetchData } from '@/store/table';
+import { fetchData, setQuery } from '@/store/table';
 import { AppDispatch, RootState } from '@/store';
 
 export function HomePage() {
@@ -29,6 +29,7 @@ export function HomePage() {
   }, []);
 
   const fetchFilteredCars = async () => {
+    dispatch(setQuery(filters));
     const res = await dispatch(fetchData({query: filters}));
     setListOfCars(res.payload);
   };
@@ -44,3 +45,4 @@ export function HomePage() {
     </>
   );
 }
+

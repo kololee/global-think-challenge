@@ -11,7 +11,8 @@ import { Car } from '../../types/cars'
 interface CarsState {
   data: Car[],
   isLoading: boolean,
-  error: boolean
+  error: boolean,
+  query?: String[]
 }
 
 interface FetchData {
@@ -21,7 +22,7 @@ interface FetchData {
 export const fetchData = createAsyncThunk('table/fetchData', async ({query}: FetchData = {}) => {
   let url = 'http://localhost:3000/cars'
   if (query && query.length > 0) {
-    url += `?fields=${query}`
+    url += `?fields=id,${query}`
   }
   const response = await axios.get(url)
   return response.data
@@ -30,13 +31,18 @@ export const fetchData = createAsyncThunk('table/fetchData', async ({query}: Fet
 const initialState: CarsState = {
   data: [],
   isLoading: true,
-  error: false
+  error: false,
+  query: []
 }
 
 const tableSlice = createSlice({
   name: 'table',
   initialState,
-  reducers: {},
+  reducers: {
+    setQuery(state, action) {
+      state.query = action.payload
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchData.pending, state => {
       state.isLoading = true
@@ -51,5 +57,7 @@ const tableSlice = createSlice({
     })
   }
 })
+
+export const { setQuery } = tableSlice.actions
 
 export default tableSlice.reducer

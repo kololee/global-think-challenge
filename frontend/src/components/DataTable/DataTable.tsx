@@ -36,6 +36,14 @@ export function DataTable({ listOfCars }: DataTableProps) {
     );
   });
 
+  /**
+   * Cuando hay filters seleccionados,
+   * desactiva el botón de edición,
+   * ya que la row tiene atributos faltantes de la base de datos
+   * para esa row.
+   **/
+  
+
   return (
     <Container my="md" mt={20}>
       <Table.ScrollContainer minWidth={800}>
