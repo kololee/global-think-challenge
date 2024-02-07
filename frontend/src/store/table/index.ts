@@ -6,7 +6,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 // ** Interface
-import { Car } from '../../types/cars'
+import { Car, CarEdit } from '../../types/cars'
 
 interface CarsState {
   data: Car[],
@@ -24,6 +24,11 @@ export const fetchData = createAsyncThunk('table/fetchData', async ({query}: Fet
     url += `?fields=id,${query}`
   }
   const response = await axios.get(url)
+  return response.data
+})
+
+export const updateCar = createAsyncThunk('table/updateCar', async (car: CarEdit) => {
+  const response = await axios.patch(`http://localhost:3000/cars/${car.id}`, car)
   return response.data
 })
 
@@ -46,6 +51,17 @@ const tableSlice = createSlice({
       state.isLoading = false
     }),
     builder.addCase(fetchData.rejected, state => {
+      state.isLoading = false
+      state.error = true
+    }),
+    builder.addCase(updateCar.pending, state => {
+      state.isLoading = true
+    }),
+    builder.addCase(updateCar.fulfilled, (state, action) => {
+      state.data = state.data.map(car => car.id === action.payload.id ? action.payload : car)
+      state.isLoading = false
+    }),
+    builder.addCase(updateCar.rejected, state => {
       state.isLoading = false
       state.error = true
     })

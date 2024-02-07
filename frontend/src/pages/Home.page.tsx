@@ -12,6 +12,7 @@ import { Car } from '@/types/cars';
 // ** Actions Imports
 import { fetchData } from '@/store/table';
 import { AppDispatch, RootState } from '@/store';
+import { set } from 'react-hook-form';
 
 export function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +28,10 @@ export function HomePage() {
     };
     fetchCars();
   }, []);
+
+  useEffect(() => {
+    setListOfCars(store.data);
+  }, [store.data]);
 
   const fetchFilteredCars = async () => {
     const res = await dispatch(fetchData({query: filters}));

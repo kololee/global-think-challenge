@@ -13,3 +13,12 @@ export interface Car {
   year: number;
   engineType: EngineType;
 };
+
+export interface CarEdit {
+  id: string;
+  brand?: string;
+  version?: string;
+  model?: string;
+  year?: number;
+  engineType?: EngineType;
+};

@@ -1,7 +1,10 @@
+import { AppDispatch } from '@/store';
+import { updateCar } from '@/store/table';
 import { Car, EngineType } from '@/types/cars';
 import { Modal, Button, Stack, TextInput, Select } from '@mantine/core';
 import { useEffect } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 interface CarsModalProps {
   opened: boolean;
@@ -20,6 +23,8 @@ type FormValues = {
 };
 
 export default function CarsModal({ opened, open, close, car }: CarsModalProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       id: car.id,
@@ -32,7 +37,7 @@ export default function CarsModal({ opened, open, close, car }: CarsModalProps) 
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
+    dispatch(updateCar(data));
   }
 
   useEffect(() => {
